@@ -25,7 +25,7 @@ public class Schedule {
 	
 	public List<SchedulePosition> getSchedule() throws ScheduleException {
 		SchedulePositionDao dao = new SchedulePositionDao();
-		scheduleList = new ArrayList<>(dao.getAll());
+		scheduleList = dao.getAll();
 		return scheduleList;
 	}
 

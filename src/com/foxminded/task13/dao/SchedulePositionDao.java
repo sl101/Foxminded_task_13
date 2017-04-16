@@ -5,16 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
 import com.foxminded.task13.domain.SchedulePosition;
 
-public class SchedulePositionDao implements GenericDao<SchedulePosition, Long>{
-	
+public class SchedulePositionDao implements GenericDao<SchedulePosition, Long> {
+
 	private static final Logger log = Logger.getLogger(SchedulePositionDao.class);
 	private final String CREATE = "INSERT INTO Schedule (weekDay, time, event) VALUES (?, ?, ?) ON CONFLICT (weekDay, time, event) DO UPDATE SET weekDay = excluded.weekDay, time = excluded.time, event = excluded.event;";
 	private final String GET_ALL = "SELECT * FROM Schedule ORDER BY id;";
@@ -23,8 +27,8 @@ public class SchedulePositionDao implements GenericDao<SchedulePosition, Long>{
 	private final String DELETE = "DELETE FROM Schedule WHERE id = ?;";
 
 	@Override
-	public Set<SchedulePosition> getAll() throws ScheduleException {
-		Set<SchedulePosition> schedule = new HashSet<SchedulePosition>();
+	public List<SchedulePosition> getAll() throws ScheduleException {
+		List<SchedulePosition> schedule = new ArrayList<SchedulePosition>();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -39,7 +43,12 @@ public class SchedulePositionDao implements GenericDao<SchedulePosition, Long>{
 				SchedulePosition schedulePosition = new SchedulePosition(weekDay, time, event);
 				long id = resultSet.getLong("id");
 				schedulePosition.setId(id);
-				schedule.add(schedulePosition);
+				Map<Integer, SchedulePosition> positionsSet = new TreeMap<Integer, SchedulePosition>();
+				positionsSet.put((int) id, schedulePosition);
+				for (Integer position : positionsSet.keySet()) {
+					schedule.add(positionsSet.get(position));
+				}
+
 			}
 		} catch (SQLException e) {
 			log.error("Problem with getting data", e);
@@ -47,11 +56,6 @@ public class SchedulePositionDao implements GenericDao<SchedulePosition, Long>{
 		} finally {
 			ConnectionFactory.closeConnection(connection, statement, resultSet);
 		}
-//		Iterator<SchedulePosition> iterator = schedule.iterator();
-//		while(iterator.hasNext()){
-//			SchedulePosition position = iterator.next();
-//			System.out.println(position.getId()+" "+position.getWeekDay()+" "+position.getTime()+" "+position.getEvent());
-//		}
 		return schedule;
 	}
 
@@ -70,7 +74,7 @@ public class SchedulePositionDao implements GenericDao<SchedulePosition, Long>{
 	@Override
 	public void delete(SchedulePosition id) throws ScheduleException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -93,7 +97,7 @@ public class SchedulePositionDao implements GenericDao<SchedulePosition, Long>{
 		} finally {
 			ConnectionFactory.closeConnection(connection, statement, resultSet);
 		}
-		
+
 	}
 
 }

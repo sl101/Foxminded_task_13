@@ -1,10 +1,10 @@
 package com.foxminded.task13.dao;
 
-import java.util.Set;
+import java.util.List;
 
 public interface GenericDao<T,E>{
 	
-	public Set<T> getAll() throws ScheduleException;
+	public List<T> getAll() throws ScheduleException;
 
 	public T getById(E id) throws ScheduleException;
 

@@ -10,27 +10,27 @@ import com.foxminded.task13.dao.SchedulePositionDao;
 
 public class Schedule {
 	
-	List<SchedulePosition> scheduleList = new ArrayList();
+	List<SchedulePosition> events = new ArrayList();
 	
 	public Schedule(){
 	
 	}
 
 
-	public void addSchedulePosition(SchedulePosition schedulePosition) throws ScheduleException{
+	public void addSchedulePosition(SchedulePosition events) throws ScheduleException{
 		SchedulePositionDao dao = new SchedulePositionDao();
-		dao.create(schedulePosition);
-		scheduleList.add(schedulePosition);
+		dao.create(events);
+		this.events.add(events);
 	}
 	
 	public List<SchedulePosition> getSchedule() throws ScheduleException {
 		SchedulePositionDao dao = new SchedulePositionDao();
-		scheduleList = dao.getAll();
-		return scheduleList;
+		events = dao.getAll();
+		return events;
 	}
 
-	public void setSchedule(List<SchedulePosition> schedule) {
-		this.scheduleList = schedule;
+	public void setSchedule(List<SchedulePosition> events) {
+		this.events = events;
 	}
 	
 	

@@ -47,4 +47,5 @@ public class SchedulePosition {
 		this.event = event;
 	}
 
+	
 }

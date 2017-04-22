@@ -31,8 +31,8 @@ public class ConnectionFactory {
 			login = property.getProperty("db.login");
 			password = property.getProperty("db.password");
 		} catch (IOException e) {
-			log.error("Problem to get properties", e);
-			throw new ScheduleException("Problem to get properties", e);
+			log.error("Can't retrieve properties", e);
+			throw new ScheduleException("Can't retrieve properties", e);
 		}
 	}
 
@@ -42,8 +42,8 @@ public class ConnectionFactory {
 			Class.forName(driver);
 			connection = DriverManager.getConnection(url, login, password);
 		} catch (SQLException | ClassNotFoundException e) {
-			log.error("Problem to create connection", e);
-			throw new ScheduleException("Problem to create connection", e);
+			log.error("Can't retrieve connection to DB", e);
+			throw new ScheduleException("Can't retrieve connection to DB", e);
 		}
 		return connection;
 	}
@@ -59,24 +59,24 @@ public class ConnectionFactory {
 			try {
 				resultSet.close();
 			} catch (SQLException e) {
-				log.error("Problem to close resultSet", e);
-				throw new ScheduleException("Problem to close resultSet", e);
+				log.error("Can't close resultSet", e);
+				throw new ScheduleException("Can't close resultSet", e);
 			}
 		}
 		if (statement != null) {
 			try {
 				statement.close();
 			} catch (SQLException e) {
-				log.error("Problem to close statement", e);
-				throw new ScheduleException("Problem to close statement", e);
+				log.error("Can't close statement", e);
+				throw new ScheduleException("Can't close statement", e);
 			}
 		}
 		if (connection != null) {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				log.error("Problem to close connection", e);
-				throw new ScheduleException("Problem to close connection", e);
+				log.error("Can't close connection", e);
+				throw new ScheduleException("Can't close connection", e);
 			}
 		}
 	}
@@ -86,16 +86,16 @@ public class ConnectionFactory {
 			try {
 				statement.close();
 			} catch (SQLException e) {
-				log.error("Problem to close statement", e);
-				throw new ScheduleException("Problem to close statement", e);
+				log.error("Can't close statement", e);
+				throw new ScheduleException("Can't close statement", e);
 			}
 		}
 		if (connection != null) {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				log.error("Problem to close connection", e);
-				throw new ScheduleException("Problem to close connection", e);
+				log.error("Can't close connection", e);
+				throw new ScheduleException("Can't close connection", e);
 			}
 		}
 	}

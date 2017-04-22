@@ -8,11 +8,11 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<servlet-name>scheduleServlet</servlet-name>
+		<servlet-name>ScheduleServlet</servlet-name>
 		<servlet-class>com.foxminded.task13.servlet.ScheduleServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>scheduleServlet</servlet-name>
+		<servlet-name>ScheduleServlet</servlet-name>
 		<url-pattern>/scheduleServlet</url-pattern>
 	</servlet-mapping>
 </web-app>
